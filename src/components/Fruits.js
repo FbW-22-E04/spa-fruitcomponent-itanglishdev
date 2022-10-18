@@ -1,27 +1,39 @@
-import { useState } from 'react'
-function Fruits(props) {
+import { useState } from "react";
+function Fruits() {
 
-  const [colouring, setColouring] = useState(['Apple', 'Banana', 'Lemon', 'Mango'])
 
-  function change() {
+  const fruits = ['apple', 'mango', 'banana']
+  const colors = ['red', 'white', 'black', 'blue', 'pink']
+
+  const [fruitsState, setFruitsState] = useState(fruits)
+  const [colorsState, setColorsState] = useState(['red', 'red', 'red'])
+
+  const handleDelete = (idx) => {
+
+    const oldFruitsState = [...fruitsState]
+    oldFruitsState.splice(idx, 1)
+
+    setFruitsState(oldFruitsState)
+  }
+
+  const handleClick = (idx) => {
+    const oldColorsState = [...colors]
+    oldColorsState[idx] = colors[Math.floor(Math.random() * colors.length)]
+
+    setColorsState(oldColorsState)
+
 
   }
 
-  console.log(colouring);
   return (
-
     <div>
       {
-        colouring.map((item, idx) => {
-
-          <div key={idx}>{item[0]}</div>
-
-        })
+        fruits.map((item, idx) => <div key={idx}>{item} color={colorsState[idx]}
+          <button onClick={() => handleClick(idx)} >Change color</button>
+          <button onClick={() => handleDelete(idx)} >Delete me</button>
+        </div>)
       }
-      <button className='border-2 border-red-800 w-[125px] h-[45px]' onClick={change}>Change Color</button>
-      <button className='border-2 border-red-800 w-[125px] h-[45px]' onClick={(e) => delete e.target.item}>Delete Me</button>
     </div>
-
   );
 }
 
